@@ -1,3 +1,3 @@
-from string_sum import sum_as_string
+from repro import buffer_len
 
-print(sum_as_string(3, 4))
+print(buffer_len(b"foo"))

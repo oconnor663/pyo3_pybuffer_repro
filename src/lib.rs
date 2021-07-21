@@ -1,15 +1,17 @@
+use pyo3::buffer::PyBuffer;
 use pyo3::prelude::*;
 
 /// Formats the sum of two numbers as string.
 #[pyfunction]
-fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
-    Ok((a + b).to_string())
+fn buffer_len(obj: &PyAny) -> PyResult<usize> {
+    let buffer = PyBuffer::<u8>::get(obj)?;
+    Ok(buffer.item_size() * buffer.item_count())
 }
 
 /// A Python module implemented in Rust.
 #[pymodule]
-fn string_sum(py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
+fn repro(_py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(buffer_len, m)?)?;
 
     Ok(())
 }
