@@ -9,6 +9,6 @@ maturin develop
 
 i=1
 while python ./test.py ; do
-    echo "$i"
+    echo "run number $i"
     i=$(($i + 1))
 done
